@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
 
 // Create a new appointment
 router.post('/', async (req, res) => {
-    const { therapistId, clientId, serviceType, date, startTime, endTime, notes } = req.body;
+    const { doctorId, clientId, serviceType, date, startTime, endTime, notes } = req.body;
     try {
         const newAppointment = new Appointment({
             therapistId,

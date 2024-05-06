@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const appointmentRoutes = require('./routes/appointmentRoutes');
-const therapistRoutes = require('./routes/doctorRoutes');
+const doctorsRoutes = require('./routes/doctorRoutes');
 const clientManagementRoutes = require('./routes/clientManagementRoutes');
 const Appointment = require('./Models/Appointment');  // Assuming you have an Appointment model
 
@@ -18,7 +18,7 @@ app.use(cors({
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/homelazeDB', {
+mongoose.connect('mongodb://localhost/CaseStudy', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -26,7 +26,7 @@ mongoose.connect('mongodb://localhost/homelazeDB', {
 .catch(err => console.error('Could not connect to MongoDB', err));
 
 // Routes for handling API requests
-app.use('/api/therapists', therapistRoutes);
+app.use('/api/doctors', doctorsRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/client-management', clientManagementRoutes);
 

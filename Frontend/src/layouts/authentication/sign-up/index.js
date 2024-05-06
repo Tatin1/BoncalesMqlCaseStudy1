@@ -1,31 +1,20 @@
-
-import { useState } from "react";
-
-// react-router-dom components
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
-
-// Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftButton from "components/SoftButton";
-
-// Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import Socials from "layouts/authentication/components/Socials";
 import Separator from "layouts/authentication/components/Separator";
-
-// Images
 import curved6 from "assets/images/curved-images/curved14.jpg";
 
 function SignUp() {
-  const [agreement, setAgremment] = useState(true);
+  const [agreement, setAgreement] = useState(true);
 
-  const handleSetAgremment = () => setAgremment(!agreement);
+  const handleSetAgreement = () => setAgreement(!agreement);
 
   return (
     <BasicLayout
@@ -55,13 +44,13 @@ function SignUp() {
               <SoftInput type="password" placeholder="Password" />
             </SoftBox>
             <SoftBox display="flex" alignItems="center">
-              <Checkbox checked={agreement} onChange={handleSetAgremment} />
+              <Checkbox checked={agreement} onChange={handleSetAgreement} />
               <SoftTypography
                 variant="button"
                 fontWeight="regular"
-                onClick={handleSetAgremment}
-                sx={{ cursor: "poiner", userSelect: "none" }}
-              >
+                onClick={handleSetAgreement}
+                sx={{ cursor: "pointer", userSelect: "none" }}
+                >
                 &nbsp;&nbsp;I agree the&nbsp;
               </SoftTypography>
               <SoftTypography
@@ -76,7 +65,7 @@ function SignUp() {
             </SoftBox>
             <SoftBox mt={4} mb={1}>
               <SoftButton variant="gradient" color="dark" fullWidth>
-                sign up
+                Sign up
               </SoftButton>
             </SoftBox>
             <SoftBox mt={3} textAlign="center">

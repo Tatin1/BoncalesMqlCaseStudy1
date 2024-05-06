@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Doctor = require('../Models/Doctor');
-const getRandomColor = require('../utils/colorHelper');
 
 // Get all therapists
 router.get('/', async (req, res) => {
-    console.log("wow nigana sanaol");
+    console.log("wow niggana sanaol");
     try {
-        const therapists = await Therapist.find();
-        res.json(therapists);
+        const doctors = await Doctor.find();
+        res.json(doctors);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -19,7 +18,7 @@ router.post('/', async (req, res) => {
     const { name, services, availability } = req.body;
     const color = getRandomColor(); // Assign a random color
 
-    const newTherapist = new Therapist({
+    const newDoctor = new Doctor({
         name,
         services,
         availability,
@@ -27,8 +26,8 @@ router.post('/', async (req, res) => {
     });
 
     try {
-        const savedTherapist = await newTherapist.save();
-        res.status(201).json(savedTherapist);
+        const savedDoctor = await newDoctor.save();
+        res.status(201).json(savedDoctor);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -39,13 +38,13 @@ router.put('/:id', async (req, res) => {
     const { name, services, availability, color } = req.body;
 
     try {
-        const updatedTherapist = await Therapist.findByIdAndUpdate(req.params.id, {
+        const updatedDoctor = await Doctor.findByIdAndUpdate(req.params.id, {
             name, services, availability, color
         }, { new: true });
-        if (!updatedTherapist) {
-            return res.status(404).json({ message: "Therapist not found" });
+        if (!updatedDoctor) {
+            return res.status(404).json({ message: "Doctor not found" });
         }
-        res.json(updatedTherapist);
+        res.json(updatedDoctor);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -54,9 +53,9 @@ router.put('/:id', async (req, res) => {
 // Delete a therapist
 router.delete('/:id', async (req, res) => {
     try {
-        const deletedTherapist = await Therapist.findByIdAndDelete(req.params.id);
-        if (!deletedTherapist) return res.status(404).send("No therapist found.");
-        res.json({ message: "Therapist deleted" });
+        const deletedDoctor= await Doctor.findByIdAndDelete(req.params.id);
+        if (!deletedDoctor) return res.status(404).send("No Doctor found.");
+        res.json({ message: "Doctor deleted" });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
