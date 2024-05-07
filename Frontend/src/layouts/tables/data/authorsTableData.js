@@ -6,11 +6,11 @@ import SoftAvatar from "components/SoftAvatar";
 import SoftBadge from "components/SoftBadge";
 
 // Images
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+import doctor1 from "assets/images/doctor-img01.png";
+import doctor2 from "assets/images/doctor-img02.png";
+import doctor3 from "assets/images/doctor-img03.png";
 
-function Author({ image, name, email }) {
+function Doctor({ image, name, specialty, status }) {
   return (
     <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
       <SoftBox mr={2}>
@@ -20,31 +20,19 @@ function Author({ image, name, email }) {
         <SoftTypography variant="button" fontWeight="medium">
           {name}
         </SoftTypography>
-        <SoftTypography variant="caption" color="secondary">
-          {email}
+        <SoftTypography variant="caption" fontWeight="medium">
+          {specialty}
         </SoftTypography>
+        <SoftBadge variant="gradient" badgeContent={status} color={status === "Available" ? "success" : "secondary"} size="xs" container />
       </SoftBox>
     </SoftBox>
   );
 }
 
-function Function({ job, org }) {
-  return (
-    <SoftBox display="flex" flexDirection="column">
-      <SoftTypography variant="caption" fontWeight="medium" color="text">
-        {job}
-      </SoftTypography>
-      <SoftTypography variant="caption" color="secondary">
-        {org}
-      </SoftTypography>
-    </SoftBox>
-  );
-}
-
-const authorsTableData = {
+const doctorsTableData = {
   columns: [
-    { name: "author", align: "left" },
-    { name: "function", align: "left" },
+    { name: "doctor", align: "left" },
+    { name: "specialization", align: "left" },
     { name: "status", align: "center" },
     { name: "employed", align: "center" },
     { name: "action", align: "center" },
@@ -52,144 +40,58 @@ const authorsTableData = {
 
   rows: [
     {
-      author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-      function: <Function job="Manager" org="Organization" />,
-      status: (
-        <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
-      ),
-      employed: (
-        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          23/04/18
-        </SoftTypography>
-      ),
+      doctor: <Doctor image={doctor1} name="Dr. John Smith" specialty="Cardiology" status="Available" />,
+      specialization: "Cardiologist",
+      status: "Available",
+      employed: "2019",
       action: (
         <SoftTypography
           component="a"
-          href="#"
+          href="#book-appointment"
           variant="caption"
           color="secondary"
           fontWeight="medium"
         >
-          Edit
+          Book Appointment
         </SoftTypography>
       ),
     },
     {
-      author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
-      function: <Function job="Programator" org="Developer" />,
-      status: (
-        <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
-      ),
-      employed: (
-        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          11/01/19
-        </SoftTypography>
-      ),
+      doctor: <Doctor image={doctor2} name="Dr. Sarah Johnson" specialty="Orthopedics" status="Unavailable" />,
+      specialization: "Orthopedist",
+      status: "Unavailable",
+      employed: "2018",
       action: (
         <SoftTypography
           component="a"
-          href="#"
+          href="#book-appointment"
           variant="caption"
           color="secondary"
           fontWeight="medium"
         >
-          Edit
+          Book Appointment
         </SoftTypography>
       ),
     },
     {
-      author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
-      function: <Function job="Executive" org="Projects" />,
-      status: (
-        <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
-      ),
-      employed: (
-        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          19/09/17
-        </SoftTypography>
-      ),
+      doctor: <Doctor image={doctor3} name="Dr. Emily Clark" specialty="Pediatrics" status="Available" />,
+      specialization: "Pediatrician",
+      status: "Available",
+      employed: "2020",
       action: (
         <SoftTypography
           component="a"
-          href="#"
+          href="#book-appointment"
           variant="caption"
           color="secondary"
           fontWeight="medium"
         >
-          Edit
+          Book Appointment
         </SoftTypography>
       ),
     },
-    {
-      author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
-      function: <Function job="Programator" org="Developer" />,
-      status: (
-        <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
-      ),
-      employed: (
-        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          24/12/08
-        </SoftTypography>
-      ),
-      action: (
-        <SoftTypography
-          component="a"
-          href="#"
-          variant="caption"
-          color="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SoftTypography>
-      ),
-    },
-    {
-      author: <Author image={team2} name="Richard Gran" email="richard@creative-tim.com" />,
-      function: <Function job="Manager" org="Executive" />,
-      status: (
-        <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
-      ),
-      employed: (
-        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          04/10/21
-        </SoftTypography>
-      ),
-      action: (
-        <SoftTypography
-          component="a"
-          href="#"
-          variant="caption"
-          color="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SoftTypography>
-      ),
-    },
-    {
-      author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
-      function: <Function job="Programtor" org="Developer" />,
-      status: (
-        <SoftBadge variant="gradient" badgeContent="offline" color="secondary" size="xs" container />
-      ),
-      employed: (
-        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          14/09/20
-        </SoftTypography>
-      ),
-      action: (
-        <SoftTypography
-          component="a"
-          href="#"
-          variant="caption"
-          color="secondary"
-          fontWeight="medium"
-        >
-          Edit
-        </SoftTypography>
-      ),
-    },
+    // Add more doctors as needed...
   ],
 };
 
-export default authorsTableData;
+export default doctorsTableData;
