@@ -25,7 +25,6 @@
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
-import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -38,7 +37,6 @@ import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
-import Cube from "examples/Icons/Cube";
 
 const routes = [
   {
@@ -59,15 +57,7 @@ const routes = [
     component: <Tables />,
     noCollapse: true,
   },
-  {
-    type: "collapse",
-    name: "Billing",
-    key: "billing",
-    route: "/billing",
-    icon: <CreditCard size="12px" />,
-    component: <Billing />,
-    noCollapse: true,
-  },
+  
   
   
   { type: "title", title: "Account Pages", key: "account-pages" },

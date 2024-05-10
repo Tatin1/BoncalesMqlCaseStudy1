@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Doctor = require('../Models/Doctor');
 
-// Get all therapists
+// Get all doctors
 router.get('/', async (req, res) => {
-    console.log("wow niggana sanaol");
     try {
         const doctors = await Doctor.find();
         res.json(doctors);
@@ -13,7 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Create a new therapist
+// Create a new doctor
 router.post('/', async (req, res) => {
     const { name, services, availability } = req.body;
     const color = getRandomColor(); // Assign a random color
@@ -33,7 +32,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Update a therapist
+// Update a doctor
 router.put('/:id', async (req, res) => {
     const { name, services, availability, color } = req.body;
 
@@ -50,10 +49,10 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// Delete a therapist
+// Delete a doctor
 router.delete('/:id', async (req, res) => {
     try {
-        const deletedDoctor= await Doctor.findByIdAndDelete(req.params.id);
+        const deletedDoctor = await Doctor.findByIdAndDelete(req.params.id);
         if (!deletedDoctor) return res.status(404).send("No Doctor found.");
         res.json({ message: "Doctor deleted" });
     } catch (err) {

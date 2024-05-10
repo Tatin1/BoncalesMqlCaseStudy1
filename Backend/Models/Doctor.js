@@ -12,7 +12,7 @@ const doctorSchema = new mongoose.Schema({
         saturday: [String],
         sunday: [String]
     },
-    color: { type: String, required: true } // Color code for the therapist
+    color: { type: String, required: true } // Color code for the doctor
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);

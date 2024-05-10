@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const doctorsRoutes = require('./routes/doctorRoutes');
-const clientManagementRoutes = require('./routes/clientManagementRoutes');
+const patientManagementRoutes = require('./Routes/patientManagementRoutes');
+const authRoutes = require('./Routes/authRoutes');
+const userManagementRoute = require('./Routes/userManagementRoute');
 const Appointment = require('./Models/Appointment');  // Assuming you have an Appointment model
 
 const app = express();
@@ -25,10 +27,13 @@ mongoose.connect('mongodb://localhost/CaseStudy', {
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('Could not connect to MongoDB', err));
 
+// Authentication routes
+app.use('/api/auth', authRoutes);
 // Routes for handling API requests
+app.use('/api/user-management', userManagementRoute);
 app.use('/api/doctors', doctorsRoutes);
 app.use('/api/appointments', appointmentRoutes);
-app.use('/api/client-management', clientManagementRoutes);
+app.use('/api/patient-management', patientManagementRoutes);
 
 // Handling 404 errors for unspecified routes
 app.use((req, res) => {

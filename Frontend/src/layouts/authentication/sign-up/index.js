@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Card from "@mui/material/Card";
-import Checkbox from "@mui/material/Checkbox";
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
-import SoftInput from "components/SoftInput";
-import SoftButton from "components/SoftButton";
-import BasicLayout from "layouts/authentication/components/BasicLayout";
-import axios from "axios";
-import curved6 from "assets/images/curved-images/curved14.jpg";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import BasicLayout from 'layouts/authentication/components/BasicLayout';
+import axios from 'axios';
+import curved6 from 'assets/images/curved-images/curved14.jpg';
 
-function SignUp() {
+const SignUp = () => {
   const [agreement, setAgreement] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const navigate = useNavigate();
 
   const handleSetAgreement = () => setAgreement(!agreement);
@@ -24,26 +25,20 @@ function SignUp() {
     e.preventDefault();
 
     try {
-      // Check if email already exists in the database
-      const existingUser = await axios.get(`http://localhost:3001/check-user/${email}`);
-      
+      const existingUser = await axios.get(`http://localhost:3001/Users/${email}`);
+
       if (existingUser.data.exists) {
-        console.log("User already exists. Redirecting to sign-in page.");
-        navigate("/authentication/sign-in");
+        console.log('User already exists. Redirecting to sign-in page.');
+        navigate('/authentication/sign-in');
       } else {
-        // User does not exist, proceed with registration
         const newUser = { name, email, password, role };
-        
-        // Send registration data to backend API
-        const response = await axios.post("http://localhost:3001/register", newUser);
+        const response = await axios.post('http://localhost:3001/Users', newUser);
 
-        console.log("Registration successful:", response.data);
-
-        // Redirect to sign-in page after successful registration
-        navigate("/authentication/sign-in");
+        console.log('Registration successful:', response.data);
+        navigate('/authentication/sign-in');
       }
     } catch (error) {
-      console.error("Registration failed:", error);
+      console.error('Registration failed:', error);
       // Handle registration error (e.g., display error message)
     }
   };
@@ -51,108 +46,102 @@ function SignUp() {
   return (
     <BasicLayout
       title="Welcome!"
-      description="Book an appointment with our very own doctors."
+      description="Book an appointment with our very own Doctors."
       image={curved6}
     >
       <Card>
-        <SoftBox p={3} mb={1} textAlign="center">
-          <SoftTypography variant="h5" fontWeight="medium">
+        <Box p={3} mb={1} textAlign="center">
+          <Typography variant="h5" fontWeight="medium">
             Register here
-          </SoftTypography>
-        </SoftBox>
-        <SoftBox pt={2} pb={3} px={3}>
-          <SoftBox component="form" role="form" onSubmit={handleSubmit}>
-            <SoftBox mb={2}>
-              <SoftInput
+          </Typography>
+        </Box>
+        <Box pt={2} pb={3} px={3}>
+          <form onSubmit={handleSubmit}>
+            <Box mb={2}>
+              <input
+                type="text"
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
               />
-            </SoftBox>
-            <SoftBox mb={2}>
-              <SoftInput
+            </Box>
+            <Box mb={2}>
+              <input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
               />
-            </SoftBox>
-            <SoftBox mb={2}>
-              <SoftInput
+            </Box>
+            <Box mb={2}>
+              <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
               />
-            </SoftBox>
-            <SoftBox mb={2}>
-              <select
-                className="form-control"
+            </Box>
+            <Box mb={2}>
+              <Select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 required
+                fullWidth
+                displayEmpty
+                style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
               >
-                <option value="">Select Role</option>
-                <option value="doctor">Doctor</option>
-                <option value="user">User</option>
-              </select>
-            </SoftBox>
-            <SoftBox display="flex" alignItems="center">
+                <MenuItem value="" disabled>
+                  Select Role
+                </MenuItem>
+                <MenuItem value="doctor">Doctor</MenuItem>
+                <MenuItem value="patient">Patient</MenuItem>
+              </Select>
+            </Box>
+            <Box display="flex" alignItems="center" mb={2}>
               <Checkbox
                 checked={agreement}
                 onChange={handleSetAgreement}
               />
-              <SoftTypography
-                variant="button"
-                fontWeight="regular"
+              <Typography
+                variant="body2"
                 onClick={handleSetAgreement}
-                sx={{ cursor: "pointer", userSelect: "none" }}
+                style={{ cursor: 'pointer', marginLeft: '8px' }}
               >
-                &nbsp;&nbsp;I agree to the&nbsp;
-              </SoftTypography>
-              <SoftTypography
-                component="a"
-                href="#"
-                variant="button"
-                fontWeight="bold"
-                textGradient
-              >
-                Terms and Conditions
-              </SoftTypography>
-            </SoftBox>
-            <SoftBox mt={4} mb={1}>
-              <SoftButton
-                variant="gradient"
-                color="dark"
+                I agree to the&nbsp;
+                <Link to="#" style={{ fontWeight: 'bold' }}>
+                  Terms and Conditions
+                </Link>
+              </Typography>
+            </Box>
+            <Box mt={4} mb={1}>
+              <Button
+                variant="contained"
+                color="primary"
                 fullWidth
                 type="submit"
               >
                 Sign up
-              </SoftButton>
-            </SoftBox>
-            <SoftBox mt={3} textAlign="center">
-              <SoftTypography variant="button" color="text" fontWeight="regular">
+              </Button>
+            </Box>
+            <Box mt={3} textAlign="center">
+              <Typography variant="body2">
                 Already have an account?&nbsp;
-                <SoftTypography
-                  component={Link}
-                  to="/authentication/sign-in"
-                  variant="button"
-                  color="dark"
-                  fontWeight="bold"
-                  textGradient
-                >
+                <Link to="/authentication/sign-in" style={{ fontWeight: 'bold' }}>
                   Sign in
-                </SoftTypography>
-              </SoftTypography>
-            </SoftBox>
-          </SoftBox>
-        </SoftBox>
+                </Link>
+              </Typography>
+            </Box>
+          </form>
+        </Box>
       </Card>
     </BasicLayout>
   );
-}
+};
 
 export default SignUp;

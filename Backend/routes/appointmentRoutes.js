@@ -6,8 +6,8 @@ const Appointment = require('../Models/Appointment')
 router.get('/', async (req, res) => {
     try {
         const appointments = await Appointment.find()
-            .populate({ path: 'clientId', select: 'name' })
-            .populate({ path: 'therapistId', select: 'name color' });
+            .populate({ path: 'patientId', select: 'name' })
+            .populate({ path: 'doctorId', select: 'name color' });
 
         // Enhance appointments with full datetime strings
         const enhancedAppointments = appointments.map(app => {
