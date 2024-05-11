@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
-import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 import SoftBox from 'components/SoftBox';
 import SoftInput from 'components/SoftInput';
 import CoverLayout from 'layouts/authentication/components/CoverLayout';
@@ -23,16 +23,19 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      // Replace with your actual API endpoint for authentication
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        username: email, // Using email as username
+      const response = await axios.post('http://localhost:3001/login', {
+        email,
         password,
       });
+
+      console.log('Login response:', response.data); // Log the response for debugging
 
       // Assuming successful authentication
       localStorage.setItem('token', response.data.token); // Store token in local storage
       navigate('/admin/index'); // Navigate to the admin dashboard after successful login
     } catch (error) {
+      console.error('Login error:', error); // Log the error for debugging
+
       alert('Invalid credentials'); // Display error message for failed login
     }
   };
@@ -81,7 +84,6 @@ const SignIn = () => {
                 sx={{ cursor: 'pointer', userSelect: 'none' }}
               >
                 &nbsp;&nbsp;Remember me
-
               </Typography>
             </SoftBox>
             <SoftBox mt={4} mb={1}>

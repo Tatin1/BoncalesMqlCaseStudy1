@@ -4,8 +4,6 @@ import Card from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import BasicLayout from 'layouts/authentication/components/BasicLayout';
 import axios from 'axios';
@@ -16,7 +14,6 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
   const navigate = useNavigate();
 
   const handleSetAgreement = () => setAgreement(!agreement);
@@ -24,22 +21,26 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const newUser = { name, email, password };
+
     try {
-      const existingUser = await axios.get(`http://localhost:3001/Users/${email}`);
+      const response = await axios.post('http://localhost:3001/signup', newUser);
 
-      if (existingUser.data.exists) {
-        console.log('User already exists. Redirecting to sign-in page.');
-        navigate('/authentication/sign-in');
-      } else {
-        const newUser = { name, email, password, role };
-        const response = await axios.post('http://localhost:3001/Users', newUser);
-
-        console.log('Registration successful:', response.data);
-        navigate('/authentication/sign-in');
-      }
+      console.log('Registration successful:', response.data);
+      navigate('/authentication/sign-in'); // Redirect to sign-in page after successful registration
     } catch (error) {
       console.error('Registration failed:', error);
-      // Handle registration error (e.g., display error message)
+
+      if (error.response) {
+        console.log('Response data:', error.response.data);
+        console.log('Response status:', error.response.status);
+      } else if (error.request) {
+        console.log('No response received:', error.request);
+      } else {
+        console.log('Error:', error.message);
+      }
+
+      alert('Registration failed. Please try again.');
     }
   };
 
@@ -86,22 +87,6 @@ const SignUp = () => {
                 required
                 style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
               />
-            </Box>
-            <Box mb={2}>
-              <Select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                required
-                fullWidth
-                displayEmpty
-                style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
-              >
-                <MenuItem value="" disabled>
-                  Select Role
-                </MenuItem>
-                <MenuItem value="doctor">Doctor</MenuItem>
-                <MenuItem value="patient">Patient</MenuItem>
-              </Select>
             </Box>
             <Box display="flex" alignItems="center" mb={2}>
               <Checkbox
